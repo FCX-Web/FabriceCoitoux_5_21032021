@@ -45,7 +45,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><i class="fas fa-shopping-basket mr-1"></i>Votre panier</a></li>
                                 </ul>
-                                <form class="form-inline text-white pb-3 ml-lg-5">
+                                <form class="form-inline text-white pb-3 pt-3 pt-lg-0 ml-lg-5">
                                     <input class="form-control" id="searchInput" type="text" placeholder="Search..">
                                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                 </form>
@@ -59,30 +59,30 @@
         <section>
             <article>
                 <div class="container">
-                    <h2>Meilleures ventes</h2>
+                    <h2 class="font-italic">Meilleures ventes</h2>
                     <div class="row mb-5 mx-3">
                         <div class="col">
                             <div id="carouselControls" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <div class="d-flex justify-content-around">
-                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="meuble en bois">
-                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="ours en peluche">
-                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="appareil photo vintage">
+                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-thumbnail" alt="meuble en bois">
+                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-thumbnail" alt="ours en peluche">
+                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-thumbnail" alt="appareil photo vintage">
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <div class="d-flex justify-content-around">
-                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="ours en peluche">
-                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="appareil photo vintage">
-                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="meuble en bois">
+                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-thumbnail" alt="ours en peluche">
+                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-thumbnail" alt="appareil photo vintage">
+                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-thumbnail" alt="meuble en bois">
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <div class="d-flex justify-content-around">
-                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="appareil photo vintage">
-                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="meuble en bois">
-                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-fluid img-thumbnail" alt="ours en peluche">
+                                            <img src="./images/vcam_1.jpg" class="d-block w-25 img-thumbnail" alt="appareil photo vintage">
+                                            <img src="./images/oak_1.jpg" class="d-block w-25 img-thumbnail" alt="meuble en bois">
+                                            <img src="./images/teddy_1.jpg" class="d-block w-25 img-thumbnail" alt="ours en peluche">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,38 @@
             </article>
             <article>
                 <div class="container">
-                    <h2>Notre catalogue</h2>
+                    <h2 class="font-italic">Notre catalogue</h2>
+                    <div class="row mb-5" id="lessonList">
+                        <div class="d-flex justify-content-around flex-wrap">
+                            <div class="col-12 col-md-3">
+                                <div class="card text-center mb-4 mb-lg-0 bg-secondary border-light shadow-sm">
+                                    <div class="card-body">
+                                        <h3 class="card-title font-weight-bold ">Peluches</h3>
+                                        <img src="images/teddy_2.jpg" alt="ours en peluche" class="card-img-top">
+                                        <a href="#" class="btn btn-primary stretched-link mt-3">Consulter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <div class="card text-center mb-4 mb-lg-0 bg-secondary border-light shadow-sm">
+                                    <div class="card-body">
+                                        <h3 class="card-title font-weight-bold ">Meubles</h3>
+                                        <img src="images/oak_2.jpg" alt="ours en peluche" class="card-img-top">
+                                        <a href="#" class="btn btn-primary stretched-link mt-3">Consulter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <div class="card text-center mb-4 mb-lg-0 bg-secondary border-light shadow-sm">
+                                    <div class="card-body">
+                                        <h3 class="card-title font-weight-bold ">Photos</h3>
+                                        <img src="images/vcam_2.jpg" alt="ours en peluche" class="card-img-top">
+                                        <a href="#" class="btn btn-primary stretched-link mt-3">Consulter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </article>
         </section>

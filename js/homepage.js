@@ -32,6 +32,27 @@ function createNode(url, id, tag, feature) {
     request.send();
 }
 
+// function createNode(url) {
+//     var request = new XMLHttpRequest();
+//     request.onreadystatechange = function() {
+//         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+//             var response = JSON.parse(this.responseText);
+//         }
+//     };
+//     request.open("GET", url);
+//     request.send();
+// }
+
+// const dataTeddies = createNode(urlList[0]);
+
+// var tagNode = document.createElement("p");
+// var node = document.createTextNode(dataTeddies[0].name);
+// tagNode.appendChild(node);
+// document.getElementById("category").appendChild(tagNode);
+
+// document.getElementById('category').innerHTML = response.name;
+
+
 //====================================================================
 //Carousel
 
@@ -39,6 +60,9 @@ function createNode(url, id, tag, feature) {
 //====================================================================
 //Affichage des catégories
 
-// document.getElementById("category").insertAdjacentHTML("afterbegin", ' <div class="col"><div class="card h-100">    <div class="card-body"><h3 id="category_title" class="card-title text-center">Peluches</h3></div><img id="category_img" src="images/teddy_3.jpg" class="card-img-top img-thumbnail" alt="ours en peluche"><div class="card-footer text-center"><a href="#peluches" class="btn btn-light stretched-link"><h4 class="font-weight-bold"">Consulter</h4>   </a></div></div></div> ');
+let nameGroup = "peluches"
+let imgGroup = "images/teddy_3.jpg"
 
-document.getElementById("category").innerHTML = '<div class="col"><div class="card h-100"><div class="card-body"><h3 id="category_title" class="card-title text-center">Peluches</h3></div><img id="category_img" src="images/teddy_3.jpg" class="card-img-top img-thumbnail" alt="ours en peluche"><div class="card-footer text-center"><a href="#peluches" class="btn btn-light stretched-link"><h4 class="font-weight-bold"">Consulter</h4>   </a></div></div></div>';
+// for (let i = 0; i < 1; i++) {
+document.getElementById("category").insertAdjacentHTML("beforeend   ", ' <div class="col"><div class="card h-100">    <div class="card-body"><h3 id="category_title" class="card-title text-center text-capitalize">' + nameGroup + '</h3></div><img id="category_img" src=" ' + imgGroup + ' " class="card-img-top img-thumbnail" alt="ours en peluche"><div class="card-footer text-center"><a href="#peluches" class="btn btn-light stretched-link"><h4 class="font-weight-bold"">Consulter</h4>   </a></div></div></div> ');
+// }

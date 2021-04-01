@@ -1,69 +1,15 @@
+//===================================================================
+//variables
+
 let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/cameras", "http://localhost:3000/api/furniture"];
 
 let groupList = ["peluches", "photo", "meubles"];
 
-// class GroupOfItems {
-//     constructor(title, dataName) {
-//         this.title = title;
-//         this.dataName = dataName;
-//     }
-// }
-
-// let teddies = new GroupOfItems("peluches", "dataTeddies");
-// let cameras = new GroupOfItems("photos", "dataCameras");
-// let furniture = new GroupOfItems("meubles", "dataFurniture");
-
-function createNode(url, id, tag, feature) {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-
-            for (let elt of response) {
-                var tagNode = document.createElement(tag);
-                if (feature === "name") {
-                    var node = document.createTextNode(elt.name);
-                } else {
-                    var node = document.createTextNode(elt.description);
-                }
-                tagNode.appendChild(node);
-                document.getElementById(id).appendChild(tagNode);
-            }
-        }
-    };
-    request.open("GET", url);
-    request.send();
-}
-
-// createNode(urlList[0], "category", "h2", "name");
-
-// function createNode(url) {
-//     var request = new XMLHttpRequest();
-//     request.onreadystatechange = function() {
-//         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-//             var response = JSON.parse(this.responseText);
-//         }
-//     };
-//     request.open("GET", url);
-//     request.send();
-// }
-
-// const dataTeddies = createNode(urlList[0]);
-
-// var tagNode = document.createElement("p");
-// var node = document.createTextNode(dataTeddies[0].name);
-// tagNode.appendChild(node);
-// document.getElementById("category").appendChild(tagNode);
-
-// document.getElementById('category').innerHTML = response.name;
-
+//====================================================================
+//panier
 
 //====================================================================
-//Carousel
-
-
-//====================================================================
-//Affichage des catégories
+//catégories
 
 function buildCategory(url, group) {
     var request = new XMLHttpRequest();
@@ -82,14 +28,13 @@ for (let i = 0; i < urlList.length; i++) {
 }
 
 //====================================================================
-//Affichage des produits
+//Catalogue
 
 function buildCatalogue(url, group) {
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             var response = JSON.parse(this.responseText);
-
             for (elt of response) {
                 document.getElementById(group).insertAdjacentHTML("beforeend", '<div class="card mb-3" style="max-width: 550px;"><div class="row g-0"><div class="col-md-6"><img src="' + elt.imageUrl + '" class="d-block w-100 img-thumbnail" alt="..."></div><div class="col-md-6"><div class="card-body"><h5 class="card-title">' + elt.name + '</h5><p class="card-text">' + elt.price + ' €</p><a href="./html/product.html" class="btn btn-primary stretched-link">En savoir +</a></div></div></div></div>');
             }
@@ -103,7 +48,6 @@ for (let i = 0; i < urlList.length; i++) {
     document.getElementById("catalogue").insertAdjacentHTML("beforeend", '<h3 id="' + groupList[i] + '" class="font-weight-bold font-italic mt-5 mb-3 text-capitalize">' + groupList[i] + '</h3> <div class="d-flex justify-content-around flex-wrap" >');
 
     buildCatalogue(urlList[i], groupList[i]);
-
 
     document.getElementById(groupList[i]).insertAdjacentHTML("beforeend", '</div>');
 }

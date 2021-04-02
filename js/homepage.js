@@ -5,8 +5,19 @@ let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/c
 
 let groupList = ["peluches", "photo", "meubles"];
 
+let basketTotalItems = Number(localStorage.getItem("basketItems"));
+// let basketTotalItems = 0;
+
 //====================================================================
 //panier
+
+if (basketTotalItems !== 0) {
+    document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="./html/basket.html"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>');
+} else {
+    document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="./html/basket.html"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>');
+}
+
+document.getElementById('test').insertAdjacentHTML('beforebegin', '<h2>' + basketTotalItems + '</h2');
 
 //====================================================================
 //catégories

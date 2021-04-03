@@ -5,6 +5,10 @@ let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/c
 
 let groupList = ["peluches", "photo", "meubles"];
 
+//PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE
+
+let basketTotalItems = 5;
+
 //===================================================================
 //requests
 

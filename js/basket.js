@@ -17,4 +17,4 @@ basketLevelMention(numberOfItems);
 
 localStorage.setItem("basketItems", numberOfItems);
 
-document.getElementById('test').insertAdjacentHTML('beforebegin', '<h2>' + localStorage.getItem('basketItems') + '</h2');
+// document.getElementById('test').insertAdjacentHTML('beforebegin', '<h2>' + localStorage.getItem('basketItems') + '</h2');

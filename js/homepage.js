@@ -20,10 +20,8 @@ if (basketTotalItems !== 0) {
 
 for (let i = 0; i < urlList.length; i++) {
     getDatas(urlList[i], groupList[i]).then((response) => {
-        document.getElementById('category_title').insertAdjacentHTML('beforeend', '<h3 class="card-title text-center text-capitalize">' + groupList[i] + '</h3>');
-        document.getElementById('category_img').src = response[1].imageUrl;
-        document.getElementById('category_img').alt = response[1].name;
-        document.getElementById('category_a').href = '#' + groupList[i];
+
+        document.getElementById("category").insertAdjacentHTML('beforeend', '<div class="col"> <div class="card h-100"><div class="card-body"><h3 id="category_title" class="card-title text-center text-capitalize">' + groupList[i] + '</h3></div><img id="category_img" src="' + response[1].imageUrl + '" alt="' + response[1].name + '" class="card-img-top img-thumbnail"><div class="card-footer text-center"><a id="category_a" href="' + '#' + groupList[i] + '" class="btn btn-light stretched-link"><h4 class="font-weight-bold">Consulter</h4></a></div></div></div>');
     });
 }
 
@@ -45,7 +43,7 @@ function buildCatalogue(url, group) {
 }
 
 for (let i = 0; i < urlList.length; i++) {
-    document.getElementById("catalogue").insertAdjacentHTML("beforeend", '<h3 class="font-weight-bold font-italic mt-5 mb-3 text-capitalize">' + groupList[i] + '</h3><div id="' + groupList[i] + '" class="row">');
+    document.getElementById("catalogue").insertAdjacentHTML("beforeend", '<h3 id="' + groupList[i] + '" class="font-weight-bold font-italic mt-5 mb-3 text-capitalize">' + groupList[i] + '</h3><div id="' + groupList[i] + 'class="row">');
 
     buildCatalogue(urlList[i], groupList[i]);
 

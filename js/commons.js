@@ -5,9 +5,25 @@ let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/c
 
 let groupList = ["peluches", "photo", "meubles"];
 
+let customList = { peluches: "colors", photo: "lenses", meubles: "varnish" };
+
 //PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE
 
-let basketTotalItems = 5;
+//====================================================================
+//panier
+
+let basketTotalItems = 0;
+
+let basketHeader = (sum, file) => {
+
+    if (sum !== 0) {
+        document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>');
+    } else {
+        document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>');
+    }
+};
+
+
 
 //===================================================================
 //requests

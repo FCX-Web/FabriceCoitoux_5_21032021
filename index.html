@@ -64,13 +64,12 @@
                     <!-- <div class="col">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h3 id="category_title" class="card-title text-center text-capitalize"></h3>
-                            </div>
-                            <img id="category_img" src="" alt="" class="card-img-top img-thumbnail">
+                                <h3 id="category_title" class="card-title text-center text-capitalize">' + groupList[i] + '</h3>
+                            </div><img id="category_img" src="' + response[1].imageUrl + '" alt="' + response[1].name + '" class="card-img-top img-thumbnail">
                             <div class="card-footer text-center">
-                                <a id="category_a" href="" class="btn btn-light stretched-link">
-                                        <h4 class="font-weight-bold">Consulter</h4>
-                                    </a>
+                                <a id="category_a" href="' + '#' + groupList[i] + 'List" class="btn btn-light stretched-link">
+                                    <h4 class="font-weight-bold">Consulter</h4>
+                                </a>
                             </div>
                         </div>
                     </div> -->
@@ -82,24 +81,21 @@
         <section>
             <div class="container">
                 <h2 id="catalogue" class="font-italic">Les produits</h2>
-                <!-- 
-                <h3 class="font-weight-bold font-italic mt-5 mb-3">Peluches</h3>
-                <div id="peluches" class="row">
+
+                <!-- <h3 id="' + groupList[i] + 'List" class="mt-5 mb-3 text-capitalize">' + groupList[i] + '</h3>
+                <div id="' + groupList[i] + '" class="row justify-content-around">
 
                     <div class="col-6-md card mb-3 mx-1" style="max-width: 550px;">
                         <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="./images/teddy_1.jpg" class="d-block w-100 img-thumbnail" alt="...">
-                            </div>
+                            <div class="col-md-6"><img src="' + elt.imageUrl + '" class="d-block w-100 img-thumbnail" alt="..."></div>
                             <div class="col-md-6">
                                 <div class="card-body">
-                                    <h5 class="card-title">Nom du produit</h5>
-                                    <p class="card-text">Prix €</p>
-                                    <a id="getId1" href="#" class="btn btn-primary stretched-link">En savoir +</a>
-                                </div>
+                                    <h5 class="card-title">' + elt.name + '</h5>
+                                    <h5 class="card-text">' + elt.price + ' €</h5><a onclick="getIdItem(this.id)" id="' + urlList[i] + '-' + elt._id + '" href="./html/product.html" class="btn btn-primary stretched-link">En savoir +</a></div>
                             </div>
                         </div>
                     </div>
+
                 </div> -->
 
             </div>

@@ -7,16 +7,26 @@ let groupList = ["peluches", "photo", "meubles"];
 
 let customList = { peluches: "colors", photo: "lenses", meubles: "varnish" };
 
+let basket = [];
+
+class itemCriterias {
+    constructor(name, option, image, price, quantity) {
+        this.name = name;
+        this.option = option;
+        this.image = image;
+        this.price = price;
+        this.quantity = quantity;
+    }
+}
+
 //PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE
 
 //====================================================================
 //panier
 
-let basketTotalItems = 0;
+let basketHeader = (basketTotalItems, file) => {
 
-let basketHeader = (sum, file) => {
-
-    if (sum !== 0) {
+    if (basketTotalItems !== 0) {
         document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>');
     } else {
         document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>');
@@ -41,4 +51,4 @@ function getDatas(url) {
         request.open("GET", url);
         request.send();
     })
-}
+};

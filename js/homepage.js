@@ -5,7 +5,7 @@
 //====================================================================
 //panier
 
-basketHeader(basketTotalItems, "./html/basket.html");
+basketHeader(basket.length, "./html/basket.html");
 
 //====================================================================
 //catégories

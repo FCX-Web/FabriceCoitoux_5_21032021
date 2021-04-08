@@ -6,7 +6,8 @@ basketHeader(basket.length, "../html/basket.html");
 //====================================================================
 //fiche produit
 
-let productDatas = localStorage.getItem("product").split("-");
+let productDatas = localStorage.getItem("productStorage").split("-");
+// let productDatas = JSON.parse(localStorage.getItem("productStorage")).split("-");
 let custom = customList[productDatas[2]];
 
 getDatas(productDatas[0]).then((response) => {
@@ -27,22 +28,30 @@ getDatas(productDatas[0]).then((response) => {
         };
     }
 });
-
-// let getChoiceOption = (choice) => {
-//     let itemChoiceOption = choice;
-//     console.log(itemChoiceOption);
-// };
-
+//addenventListener
 let sendToBasket = () => {
-    let itemName = document.getElementById("productName").innerHTML;
-    let itemChoiceOption = document.getElementById("productCustom").value;
-    let itemImage = document.getElementById("productImage").src;
-    let itemPrice = document.getElementById("productPrice").innerHTML;
-    let itemQuantity = document.getElementById("idQuantity").value;
     let goToBasket = confirm("Voulez-vous ajouter cette référence au panier ?");
-    let id = new itemCriterias(itemName, itemChoiceOption, itemImage, itemPrice, itemQuantity)
     if (goToBasket) {
-        console.log(id);
+
+        let itemId = document.getElementById("productId").innerHTML;
+        let itemName = document.getElementById("productName").innerHTML;
+        let itemChoiceOption = document.getElementById("productCustom").value;
+        let itemImage = document.getElementById("productImage").src;
+        let itemPrice = document.getElementById("productPrice").innerHTML;
+        let itemQuantity = document.getElementById("idQuantity").value;
+
+        let itemDatas = [];
+
+        if (itemDatas === null) {
+            itemDatas = [];
+        }
+        itemDatas.push([itemId, itemName, itemChoiceOption, itemImage, itemPrice, itemQuantity]);
+
+        console.log(itemDatas);
+
+        localStorage.setItem("itemStorage", itemDatas);
+        // localStorage.setItem("basketStorage", JSON.stringify(itemDatas));
+
     } else {
         document.location.reload();
         console.log("Transaction abandonnée");

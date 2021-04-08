@@ -39,5 +39,6 @@ for (let i = 0; i < urlList.length; i++) {
 //envoi fiche produit
 
 let getIdItem = (idItem) => {
-    localStorage.setItem("product", idItem);
+    localStorage.setItem("productStorage", idItem);
+    //localStorage.setItem("productStorage", JSON.stringify(idItem));
 }

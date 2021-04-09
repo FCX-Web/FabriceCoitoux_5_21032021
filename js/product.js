@@ -22,7 +22,7 @@ getDatas(productDatas[0]).then((response) => {
                     document.getElementById("productCustom").insertAdjacentHTML("beforeend", '<option value="' + elt[custom][i] + '">' + elt[custom][i] + "</option>");
                 }
 
-                document.getElementById("productPrice").innerHTML = elt.price / 100 + ",00";
+                document.getElementById("productPrice").innerHTML = elt.price / 100;
                 document.getElementById("productId").innerHTML = elt._id;
                 break;
         };
@@ -41,19 +41,33 @@ let sendToBasket = () => {
         let itemQuantity = document.getElementById("idQuantity").value;
 
         let itemDatas = [];
-
-        if (itemDatas === null) {
-            itemDatas = [];
-        }
         itemDatas.push([itemId, itemName, itemChoiceOption, itemImage, itemPrice, itemQuantity]);
 
-        console.log(itemDatas);
+        let basketDatas = [];
 
-        localStorage.setItem("itemStorage", itemDatas);
-        // localStorage.setItem("basketStorage", JSON.stringify(itemDatas));
+        if (localStorage.getItem("basketStorage") == null) {
+            basketDatas = [];
+        } else {
+            basketDatas = localStorage.getItem("basketStorage").split(",");
+        }
+
+        let basketAdd = () => {
+            basketDatas.unshift(
+                itemDatas
+            );
+        };
+
+        if (basketDatas.length === 1) {
+            basketAdd();
+            basketDatas.pop();
+            localStorage.setItem("basketStorage", basketDatas);
+        } else {
+            basketAdd();
+            localStorage.setItem("basketStorage", basketDatas);
+        }
 
     } else {
         document.location.reload();
-        console.log("Transaction abandonnée");
+        console.log("Choix abandonné");
     }
 };

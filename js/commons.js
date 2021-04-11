@@ -1,7 +1,7 @@
 //===================================================================
 //variables
 
-let basket = [];
+// let basket = [];
 
 let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/cameras", "http://localhost:3000/api/furniture"];
 
@@ -9,32 +9,17 @@ let groupList = ["peluches", "photo", "meubles"];
 
 let customList = { peluches: "colors", photo: "lenses", meubles: "varnish" };
 
-// class itemCriteriasClass {
-//     constructor(id, name, option, image, price, quantity) {
-//         this.id = id;
-//         this.name = name;
-//         this.option = option;
-//         this.image = image;
-//         this.price = price;
-//         this.quantity = quantity;
-//     }
-// }
-
-//PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE PROVISOIRE
-
 //====================================================================
 //panier
 
-let basketHeader = (basketTotalItems, file) => {
-
+let basketHeader = (file) => {
+    let basketTotalItems = localStorage.getItem("basketLevel");
     if (basketTotalItems !== 0) {
-        document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>');
+        document.getElementById('buttonBasket').innerHTML = '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>';
     } else {
-        document.getElementById('buttonBasket').insertAdjacentHTML('beforeend', '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>');
+        document.getElementById('buttonBasket').innerHTML = '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>';
     }
 };
-
-
 
 //===================================================================
 //requests

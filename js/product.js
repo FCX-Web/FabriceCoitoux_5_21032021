@@ -1,19 +1,26 @@
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//finaliser compteur panier
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 //====================================================================
 //panier
 
-basketHeader(basket.length, "../html/basket.html");
+basketHeader("../html/basket.html");
 
 //====================================================================
 //fiche produit
 
-let productDatas = localStorage.getItem("productStorage").split("-");
-// let productDatas = JSON.parse(localStorage.getItem("productStorage")).split("-");
-let custom = customList[productDatas[2]];
+let urlParams = new URLSearchParams(document.location.search.substring(1));
+let itemId = urlParams.get("id");
+let itemCategory = urlParams.get("category");
+let itemIndex = groupList.indexOf(itemCategory);
 
-getDatas(productDatas[0]).then((response) => {
+let custom = customList[itemCategory];
+
+getDatas(urlList[itemIndex]).then((response) => {
     for (elt of response) {
         switch (elt._id) {
-            case productDatas[1]:
+            case itemId:
                 document.getElementById("productImage").setAttribute("src", elt.imageUrl);
                 document.getElementById("productName").innerHTML = elt.name;
                 document.getElementById("productDescription").innerHTML = elt.description;
@@ -28,23 +35,15 @@ getDatas(productDatas[0]).then((response) => {
         };
     }
 });
-//addenventListener
+
 let sendToBasket = () => {
-    let goToBasket = confirm("Voulez-vous ajouter cette référence au panier ?");
-    if (goToBasket) {
-
-        let itemId = document.getElementById("productId").innerHTML;
-        let itemName = document.getElementById("productName").innerHTML;
+    if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
         let itemChoiceOption = document.getElementById("productCustom").value;
-        let itemImage = document.getElementById("productImage").src;
-        let itemPrice = document.getElementById("productPrice").innerHTML;
         let itemQuantity = document.getElementById("idQuantity").value;
-
         let itemDatas = [];
-        itemDatas.push([itemId, itemName, itemChoiceOption, itemImage, itemPrice, itemQuantity]);
+        itemDatas.push([itemId, itemChoiceOption, itemQuantity]);
 
         let basketDatas = [];
-
         if (localStorage.getItem("basketStorage") == null) {
             basketDatas = [];
         } else {
@@ -68,6 +67,9 @@ let sendToBasket = () => {
 
     } else {
         document.location.reload();
-        console.log("Choix abandonné");
     }
 };
+
+document.getElementById("addItem").addEventListener("click", () => {
+    sendToBasket()
+});

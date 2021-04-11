@@ -1,3 +1,8 @@
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//nettoyer id carte article
+//finaliser compteur panier
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 //===================================================================
 //variables
 
@@ -5,7 +10,7 @@
 //====================================================================
 //panier
 
-basketHeader(basket.length, "./html/basket.html");
+basketHeader("./html/basket.html");
 
 //====================================================================
 //catégories
@@ -26,7 +31,7 @@ for (let i = 0; i < urlList.length; i++) {
         document.getElementById("catalogue").insertAdjacentHTML("beforeend", '<h3 id="' + groupList[i] + 'List" class="mt-5 mb-3 text-capitalize">' + groupList[i] + '</h3><div id="' + groupList[i] + '" class="row justify-content-around">');
 
         for (elt of response) {
-            document.getElementById(groupList[i]).insertAdjacentHTML("beforeend", '<div class="col-6-md card mb-3 mx-1" style="max-width: 550px;"><div class="row g-0"><div class="col-md-6"><img src="' + elt.imageUrl + '" class="d-block w-100 img-thumbnail" alt="..."></div><div class="col-md-6"><div class="card-body"><h5 class="card-title">' + elt.name + '</h5><h5 class="card-text">' + elt.price / 100 + ',00' + ' €</h5><a onclick="getIdItem(this.id)" id="' + urlList[i] + '-' + elt._id + '-' + groupList[i] + '" href="./html/product.html" class="btn btn-primary stretched-link">En savoir +</a></div></div></div></div>');
+            document.getElementById(groupList[i]).insertAdjacentHTML("beforeend", '<div class="col-6-md card mb-3 mx-1" style="max-width: 550px;"><div class="row g-0"><div class="col-md-6"><img src="' + elt.imageUrl + '" class="d-block w-100 img-thumbnail" alt="..."></div><div class="col-md-6"><div class="card-body"><h5 class="card-title">' + elt.name + '</h5><h5 class="card-text">' + elt.price / 100 + ' €</h5><a onclick="getIdItem(this.id)" href="./html/product.html?id=' + elt._id + '&category=' + groupList[i] + '" class="btn btn-primary stretched-link">En savoir +</a></div></div></div></div>');
         }
 
         document.getElementById(groupList[i]).insertAdjacentHTML("beforeend", '</div>');

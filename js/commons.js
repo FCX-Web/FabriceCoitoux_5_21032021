@@ -1,13 +1,13 @@
 //===================================================================
 //variables
 
-// let basket = [];
-
 let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/cameras", "http://localhost:3000/api/furniture"];
 
 let groupList = ["peluches", "photo", "meubles"];
 
 let customList = { peluches: "colors", photo: "lenses", meubles: "varnish" };
+
+0
 
 //====================================================================
 //panier

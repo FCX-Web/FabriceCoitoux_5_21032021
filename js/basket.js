@@ -111,7 +111,6 @@ console.log(basketDatas);
 //     console.log(x);
 // }
 
-
 let itemDatas = JSON.parse(localStorage.getItem("itemStorage"));
 console.log(itemDatas);
 

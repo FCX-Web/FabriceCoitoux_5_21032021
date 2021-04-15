@@ -14,7 +14,7 @@ let customList = { peluches: "colors", photo: "lenses", meubles: "varnish" };
 
 let basketHeader = (file) => {
     let basketTotalItems = localStorage.getItem("basketLevel");
-    if ((basketTotalItems === 0) || (basketTotalItems == null)) {
+    if ((basketTotalItems < 1) || (basketTotalItems == null)) {
         document.getElementById('buttonBasket').innerHTML = '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-secondary">(vide)</span></a>';
     } else {
         document.getElementById('buttonBasket').innerHTML = '<a class="nav-link" href="' + file + '"><i class="fas fa-shopping-basket mr-1"></i>Panier<span class="badge bg-danger">' + basketTotalItems + '</span></a>';

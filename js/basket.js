@@ -11,6 +11,8 @@
 // }
 
 let totalAmount = () => {
+
+
     let sum = 0;
     for (let i = 0; i < idList.length; i++) {
         for (let k in urlList) {
@@ -18,13 +20,13 @@ let totalAmount = () => {
                 for (elt of response) {
                     switch (elt._id) {
                         case idList[i]:
-                            sum += elt.price;
+                            sum += elt.price * Number(basketDatas[idList[i]].itemQuantity);
                             break;
                     };
                 };
+                document.getElementById("totalAmount").innerHTML = sum / 100;
             });
         };
-        document.getElementById("totalAmount").innerHTML = sum / 100;
     };
 };
 
@@ -55,18 +57,20 @@ let changeItemQuantity = (price, i, quantity) => {
 }
 
 let removeItem = (i) => {
-    document.getElementById("item-" + i).remove();
-    delete basketDatas[idList[i]];
-    idList = Object.keys(basketDatas);
-    localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-    let numberOfItems = 0;
-    for (let i = 0; i < idList.length; i++) {
-        numberOfItems += Number(basketDatas[idList[i]].itemQuantity);
+    if (window.confirm("Confirmez-vous la suppression de cet article ?", "", "")) {
+        document.getElementById("item-" + i).remove();
+        delete basketDatas[idList[i]];
+        idList = Object.keys(basketDatas);
+        localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+        let numberOfItems = 0;
+        for (let i = 0; i < idList.length; i++) {
+            numberOfItems += Number(basketDatas[idList[i]].itemQuantity);
+        }
+        localStorage.setItem("basketLevel", numberOfItems);
+        // basketHeader("../html/basket.html");
+        totalAmount();
+        basketUpDate();
     }
-    localStorage.setItem("basketLevel", numberOfItems);
-    // basketHeader("../html/basket.html");
-    totalAmount();
-    basketUpDate();
 }
 
 let showBasket = () => {

@@ -1,8 +1,6 @@
 //====================================================================
 //panier
 
-// basketHeader("../html/basket.html");
-
 let basketUpDate = () => {
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
     if (basketDatas == null) {
@@ -56,12 +54,11 @@ let sendToBasket = () => {
         let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
         if (basketDatas == null) {
             basketDatas = {};
-        } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
-            basketDatas[itemId].itemQuantity = Number(basketDatas[itemId].itemQuantity) + Number(itemQuantity);
+            basketDatas[itemId] = itemDatas;
             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
             basketUpDate();
-        } else if (itemId in basketDatas && itemChoiceOption != basketDatas[itemId].itemChoiceOption) {
-            basketDatas[itemId].itemChoiceOption = itemChoiceOption;
+        } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
+            basketDatas[itemId].itemQuantity = Number(basketDatas[itemId].itemQuantity) + Number(itemQuantity);
             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
             basketUpDate();
         } else {

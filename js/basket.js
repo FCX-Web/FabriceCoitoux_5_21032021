@@ -1,18 +1,12 @@
 //====================================================================
 //liste des produits
 
-// let basketUpDate = () => {
-//     let numberOfItems = 0;
-//     for (let i = 0; i < idList.length; i++) {
-//         numberOfItems += Number(basketDatas[idList[i]].itemQuantity);
-//     }
-//     localStorage.setItem("basketLevel", numberOfItems);
-//     basketHeader("../html/basket.html");
-// }
-
 let totalAmount = () => {
-
-
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
+    if (basketDatas == null) {
+        basketDatas = {};
+    }
+    let idList = Object.keys(basketDatas);
     let sum = 0;
     for (let i = 0; i < idList.length; i++) {
         for (let k in urlList) {
@@ -46,17 +40,32 @@ let basketUpDate = () => {
 
 
 let changeItemQuantity = (price, i, quantity) => {
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
+    if (basketDatas == null) {
+        basketDatas = {};
+    }
+    let idList = Object.keys(basketDatas);
     let numberOfItems = localStorage.getItem("basketLevel");
     numberOfItems = numberOfItems - basketDatas[idList[i]].itemQuantity + quantity;
     basketDatas[idList[i]].itemQuantity = quantity;
     document.getElementById("quantity-" + i).setAttribute("value", quantity);
     document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * basketDatas[idList[i]].itemQuantity) / 100 + " €";
     localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-    totalAmount();
-    basketUpDate();
+    if (numberOfItems === 0) {
+        basketEmpty();
+        basketUpDate();
+    } else {
+        totalAmount();
+        basketUpDate();
+    }
 }
 
 let removeItem = (i) => {
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
+    if (basketDatas == null) {
+        basketDatas = {};
+    }
+    let idList = Object.keys(basketDatas);
     if (window.confirm("Confirmez-vous la suppression de cet article ?", "", "")) {
         document.getElementById("item-" + i).remove();
         delete basketDatas[idList[i]];
@@ -67,13 +76,17 @@ let removeItem = (i) => {
             numberOfItems += Number(basketDatas[idList[i]].itemQuantity);
         }
         localStorage.setItem("basketLevel", numberOfItems);
-        // basketHeader("../html/basket.html");
-        totalAmount();
-        basketUpDate();
+        if (numberOfItems === 0) {
+            basketEmpty();
+            basketUpDate();
+        } else {
+            totalAmount();
+            basketUpDate();
+        }
     }
 }
 
-let showBasket = () => {
+let showBasket = (idList) => {
     let sum = 0;
     for (let i = 0; i < idList.length; i++) {
         for (let k in urlList) {
@@ -94,7 +107,6 @@ let showBasket = () => {
                                 removeItem(document.getElementById(i).id);
                             });
 
-
                             break;
                     };
                 }
@@ -103,15 +115,34 @@ let showBasket = () => {
     };
 };
 
+let basketEmpty = () => {
+    document.getElementById("basketsection").innerHTML = '<div class="container"> <h2 class="d-flex justify-content-lg-center mb-5">Votre panier est vide</h2> <div class="d-flex justify-content-center mb-5"> <a href="../index.html"  class="btn btn-primary mr-3">Continuer mes achats</a> </div> </div>';
+};
+
+let command = () => {
+    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2 class="mb-5">Vos Coordonnées</h2> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control" id="prenom" placeholder="Prénom" required> </div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control" id="nom" placeholder="Nom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="prenom">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="Adresse" required> </div> <div class = "col-md-6 mb-3" > <label for="prenom">Complément d\'adresse</label> <input type = "text" class="form-control" id="adresse" placeholder="Complément d\'adresse" > </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="cp">Code postal</label> <input type="number" class="form-control" id="cp" placeholder="Code postal" required> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control" id="ville" placeholder="Ville" required> </div> <div class="col-md-3 mb-3" > <label for="pays" >Pays</label> <input type="text" class="form-control" id="pays" placeholder="Pays" required > </div> <div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="email" required > </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile ou fixe</label> <input type="tel" class="form-control" id="tel" placeholder="Téléphone" required > </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label> <div class="invalid-feedback" >Vous devez accepter les CGU pour continuer </div> </div > </div> <a href="./purchase.html" class="btn btn-primary" >Envoyer</a> </form>';
+};
+
 
 //=======================================================================
 //main
 
 let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-if (basketDatas == null) {
-    basketDatas = {};
-}
-let idList = Object.keys(basketDatas);
+let basketTotalItems = localStorage.getItem("basketLevel");
 
-basketUpDate();
-showBasket();
+if ((basketTotalItems < 1) || (basketTotalItems == null)) {
+    basketDatas = {};
+    basketEmpty();
+} else {
+    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<h2 class="d-flex justify-content-lg-center mb-3">Détail de votre commande</h2> <div> <div id="basketCollection">');
+
+    let idList = Object.keys(basketDatas);
+    showBasket(idList);
+    basketUpDate();
+
+    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="validation" class="btn btn-success"> Valider ma commande </a> </div> </div>');
+
+    document.getElementById("validation").addEventListener("click", () => {
+        command();
+    });
+}

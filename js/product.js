@@ -1,32 +1,19 @@
 //====================================================================
-//panier
+/*product card*/
 
-let basketUpDate = () => {
-    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-    if (basketDatas == null) {
-        basketDatas = {};
-    }
-    let idList = Object.keys(basketDatas);
-    let numberOfItems = 0;
-    for (let i = 0; i < idList.length; i++) {
-        numberOfItems += Number(basketDatas[idList[i]].itemQuantity);
-    }
-    localStorage.setItem("basketLevel", numberOfItems);
-    basketHeader("../html/basket.html");
-}
-
-//====================================================================
-//fiche produit
-
-basketHeader("../html/basket.html");
-
+//extraction of data from the url
 let urlParams = new URLSearchParams(document.location.search.substring(1));
 let itemId = urlParams.get("id");
 let itemCategory = urlParams.get("category");
 let itemIndex = groupList.indexOf(itemCategory);
 
+//determination of the product category
 let custom = customList[itemCategory];
 
+//update of the header basket
+basketHeader("../html/basket.html");
+
+//data collection and insertion
 getDatas(urlList[itemIndex]).then((response) => {
     for (elt of response) {
         switch (elt._id) {
@@ -46,6 +33,7 @@ getDatas(urlList[itemIndex]).then((response) => {
     }
 });
 
+//validation of the choices and saving in localstorage
 let sendToBasket = () => {
     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
         let itemChoiceOption = document.getElementById("productCustom").value;
@@ -58,7 +46,7 @@ let sendToBasket = () => {
             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
             basketUpDate();
         } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
-            basketDatas[itemId].itemQuantity = Number(basketDatas[itemId].itemQuantity) + Number(itemQuantity);
+            basketDatas[itemId].itemQuantity = parseInt(basketDatas[itemId].itemQuantity, 10) + parseInt(itemQuantity, 10);
             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
             basketUpDate();
         } else {

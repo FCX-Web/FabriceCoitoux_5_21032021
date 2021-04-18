@@ -37,7 +37,7 @@ let changeItemQuantity = (price, i, quantity) => {
     localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
 
-    if (numberOfItems === 0) {
+    if (!numberOfItems) {
         basketEmpty();
         basketUpDate();
     } else {

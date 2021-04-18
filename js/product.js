@@ -33,30 +33,75 @@ getDatas(urlList[itemIndex]).then((response) => {
     }
 });
 
+//=======================================================================
+/* basketStorage as array of object*/
+
 //validation of the choices and saving in localstorage
 let sendToBasket = () => {
     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
         let itemChoiceOption = document.getElementById("productCustom").value;
         let itemQuantity = document.getElementById("idQuantity").value;
-        let itemDatas = { itemChoiceOption, itemQuantity };
+        let itemDatas = { itemId, itemChoiceOption, itemQuantity };
         let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-        if (basketDatas == null) {
-            basketDatas = {};
-            basketDatas[itemId] = itemDatas;
-            localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-            basketUpDate();
-        } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
-            basketDatas[itemId].itemQuantity = parseInt(basketDatas[itemId].itemQuantity, 10) + parseInt(itemQuantity, 10);
-            localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-            basketUpDate();
+
+        if (!basketDatas) {
+            basketDatas = [];
+            basketDatas.push(itemDatas);
         } else {
-            basketDatas[itemId] = itemDatas;
-            localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-            basketUpDate();
+            let k = 0;
+            for (let elt of basketDatas) {
+                switch (itemId) {
+                    case elt.itemId:
+                        if (elt.itemChoiceOption == itemChoiceOption) {
+                            elt.itemQuantity = String(parseInt(elt.itemQuantity) + parseInt(itemQuantity));
+                            k++;
+                        }
+                        break;
+                }
+            }
+            if (k === 0) {
+                basketDatas.push(itemDatas);
+            }
         }
+        console.log(basketDatas);
+        basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+        basketUpDate();
     }
 };
+
 
 document.getElementById("addItem").addEventListener("click", () => {
     sendToBasket()
 });
+
+
+//=======================================================================
+/* basketStorage as object*/
+
+// //validation of the choices and saving in localstorage
+// let sendToBasket = () => {
+//     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
+//         let itemChoiceOption = document.getElementById("productCustom").value;
+//         let itemQuantity = document.getElementById("idQuantity").value;
+//         let itemDatas = { itemChoiceOption, itemQuantity };
+//         let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
+//         if (basketDatas == null) {
+//             basketDatas = {};
+//             basketDatas[itemId] = itemDatas;
+//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+//             basketUpDate();
+//         } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
+//             basketDatas[itemId].itemQuantity = parseInt(basketDatas[itemId].itemQuantity, 10) + parseInt(itemQuantity, 10);
+//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+//             basketUpDate();
+//         } else {
+//             basketDatas[itemId] = itemDatas;
+//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+//             basketUpDate();
+//         }
+//     }
+// };
+
+// document.getElementById("addItem").addEventListener("click", () => {
+//     sendToBasket()
+// });

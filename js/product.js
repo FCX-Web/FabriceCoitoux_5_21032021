@@ -72,35 +72,3 @@ let sendToBasket = () => {
 document.getElementById("addItem").addEventListener("click", () => {
     sendToBasket()
 });
-
-
-//=======================================================================
-/* basketStorage as object*/
-
-// //validation of the choices and saving in localstorage
-// let sendToBasket = () => {
-//     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
-//         let itemChoiceOption = document.getElementById("productCustom").value;
-//         let itemQuantity = document.getElementById("idQuantity").value;
-//         let itemDatas = { itemChoiceOption, itemQuantity };
-//         let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-//         if (basketDatas == null) {
-//             basketDatas = {};
-//             basketDatas[itemId] = itemDatas;
-//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-//             basketUpDate();
-//         } else if (itemId in basketDatas && itemChoiceOption == basketDatas[itemId].itemChoiceOption) {
-//             basketDatas[itemId].itemQuantity = parseInt(basketDatas[itemId].itemQuantity, 10) + parseInt(itemQuantity, 10);
-//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-//             basketUpDate();
-//         } else {
-//             basketDatas[itemId] = itemDatas;
-//             localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-//             basketUpDate();
-//         }
-//     }
-// };
-
-// document.getElementById("addItem").addEventListener("click", () => {
-//     sendToBasket()
-// });

@@ -10,20 +10,18 @@
 //update of the total amount of the basket
 let totalAmount = () => {
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-    let idList = Object.keys(basketDatas);
-
-    let numberOfItems = 0;
-    for (let i = 0; i < idList.length; i++) {
+    let amount = 0;
+    for (let i = 0; i < basketDatas.length; i++) {
         for (let k in urlList) {
             getDatas(urlList[k]).then((response) => {
                 for (elt of response) {
-                    switch (elt._id) {
-                        case idList[i]:
-                            numberOfItems += elt.price * parseInt(basketDatas[idList[i]].itemQuantity, 10);
+                    switch (basketDatas[i].itemId) {
+                        case elt._id:
+                            amount += elt.price * parseInt(basketDatas[i].itemQuantity, 10);
                             break;
                     };
                 };
-                document.getElementById("totalAmount").innerHTML = numberOfItems / 100;
+                document.getElementById("totalAmount").innerHTML = amount / 100;
             });
         };
     };
@@ -32,11 +30,12 @@ let totalAmount = () => {
 //change of basket quantities
 let changeItemQuantity = (price, i, quantity) => {
     let numberOfItems = JSON.parse(localStorage.getItem("basketLevel"));
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
-    numberOfItems = numberOfItems - basketDatas[idList[i]].itemQuantity + quantity;
-    basketDatas[idList[i]].itemQuantity = quantity;
+    numberOfItems = numberOfItems - basketDatas[i].itemQuantity + quantity;
+    basketDatas[i].itemQuantity = quantity;
     document.getElementById("quantity-" + i).setAttribute("value", quantity);
-    document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * basketDatas[idList[i]].itemQuantity) / 100 + " €";
+    document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * basketDatas[i].itemQuantity) / 100 + " €";
 
     localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
@@ -53,19 +52,17 @@ let changeItemQuantity = (price, i, quantity) => {
 //deletion of an article
 let removeItem = (i) => {
     basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-    idList = Object.keys(basketDatas);
 
     if (window.confirm("Confirmez-vous la suppression de cet article ?", "", "")) {
         document.getElementById("item-" + i).remove();
-        delete basketDatas[idList[i]];
-        idList = Object.keys(basketDatas);
+        basketDatas.splice(i, 1);
         localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         let numberOfItems = 0;
-        for (let i = 0; i < idList.length; i++) {
-            numberOfItems += parseInt(basketDatas[idList[i]].itemQuantity, 10);
+        for (let i = 0; i < basketDatas.length; i++) {
+            numberOfItems += parseInt(basketDatas[i].itemQuantity, 10);
         }
         localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
-        if (numberOfItems === 0) {
+        if (!numberOfItems) {
             basketEmpty();
             basketUpDate();
         } else {
@@ -77,14 +74,13 @@ let removeItem = (i) => {
 
 //list of basket items
 let showBasket = () => {
-    // let basketTotalItems = 0;
     for (let i = 0; i < basketDatas.length; i++) {
         for (let k in urlList) {
             getDatas(urlList[k]).then((response) => {
                 for (elt of response) {
                     switch (elt._id) {
-                        case idList[i]:
-                            document.getElementById("basketCollection").insertAdjacentHTML("beforeend", '<div id="item-' + i + '" class="card mb - 3"> <div class="row g-0"> <div class="col-md-1 align-self-center"> <img src="' + elt.imageUrl + '" class = "d-block w-100" alt="..."> </div> <div class="col-md-3"> <div class="card-body"> <h5 class="card-text">' + elt.name + '</h5> <p class="card-text">' + basketDatas[idList[i]].itemChoiceOption + '</p></div> </div> <div class="col-md-3"> <div class="card-body"> <p class="card-text">Prix unitaire : <span  id="eltPrice-' + i + '" class="font-weight-bold">' + elt.price / 100 + '</span> <span> €</span></p> </div> </div> <div class="col-md-3"> <div class="card-body"> <div class="input-group mb-3"> <span class="input-group-text">Quantité</span> <input id="quantity-' + i + '" type="number" class="form-control"   value="' + basketDatas[idList[i]].itemQuantity + '"> </div> </div> </div> <div class="col-md-2 align-self-end"> <div class="card-body"> <p id="totalPrice-' + i + '" class="card-text font-weight-bold">Total: ' + (elt.price * basketDatas[idList[i]].itemQuantity) / 100 + ' €</p> <a id="' + i + '" href="#" class="btn btn-warning">Supprimer</a> </div> </div> </div> <div class="mb-3"> <span class="ml-5">Référence : </span> <span id="productId" class="card-text">' + elt._id + '</span> </div></div>');
+                        case basketDatas[i].itemId:
+                            document.getElementById("basketCollection").insertAdjacentHTML("beforeend", '<div id="item-' + i + '" class="card mb - 3"> <div class="row g-0"> <div class="col-md-1 align-self-center"> <img src="' + elt.imageUrl + '" class = "d-block w-100" alt="..."> </div> <div class="col-md-3"> <div class="card-body"> <h5 class="card-text">' + elt.name + '</h5> <p class="card-text">' + basketDatas[i].itemChoiceOption + '</p></div> </div> <div class="col-md-3"> <div class="card-body"> <p class="card-text">Prix unitaire : <span  id="eltPrice-' + i + '" class="font-weight-bold">' + elt.price / 100 + '</span> <span> €</span></p> </div> </div> <div class="col-md-3"> <div class="card-body"> <div class="input-group mb-3"> <span class="input-group-text">Quantité</span> <input id="quantity-' + i + '" type="number" class="form-control"   value="' + basketDatas[i].itemQuantity + '"> </div> </div> </div> <div class="col-md-2 align-self-end"> <div class="card-body"> <p id="totalPrice-' + i + '" class="card-text font-weight-bold">Total: ' + (elt.price * basketDatas[i].itemQuantity) / 100 + ' €</p> <a id="' + i + '" href="#" class="btn btn-warning">Supprimer</a> </div> </div> </div> <div class="mb-3"> <span class="ml-5">Référence : </span> <span id="productId" class="card-text">' + elt._id + '</span> </div></div>');
 
                             document.getElementById("quantity-" + i).addEventListener("change", () => {
                                 changeItemQuantity(document.getElementById("eltPrice-" + i).innerHTML * 100, i, document.getElementById("quantity-" + i).value);
@@ -119,7 +115,6 @@ let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel"));
 if (basketDatas == null) {
     basketDatas = {};
 }
-// let idList = Object.keys(basketDatas);
 
 basketUpDate();
 
@@ -182,7 +177,7 @@ if (!basketTotalItems) {
 //         basketEmpty();
 //         basketUpDate();
 //     } else {
-//         totalAmount();
+totalAmount();
 //         basketUpDate();
 //     }
 // }
@@ -206,7 +201,7 @@ if (!basketTotalItems) {
 //             basketEmpty();
 //             basketUpDate();
 //         } else {
-//             totalAmount();
+totalAmount();
 //             basketUpDate();
 //         }
 //     }
@@ -266,7 +261,7 @@ if (!basketTotalItems) {
 //     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<h2 class="d-flex justify-content-lg-center mb-3">Détail de votre commande</h2> <div> <div id="basketCollection">');
 
 //     showBasket();
-//     totalAmount();
+totalAmount();
 
 //     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="validation" class="btn btn-success"> Valider ma commande </a> </div> </div>');
 

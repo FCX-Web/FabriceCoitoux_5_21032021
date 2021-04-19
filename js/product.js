@@ -63,7 +63,6 @@ let sendToBasket = () => {
                 basketDatas.push(itemDatas);
             }
         }
-        console.log(basketDatas);
         basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         basketUpDate();
     }

@@ -1,10 +1,10 @@
 //====================================================================
-//panier
+//basket
 
 basketHeader("./html/basket.html");
 
 //====================================================================
-//catégories
+//categories
 
 for (let i = 0; i < urlList.length; i++) {
     getDatas(urlList[i], groupList[i]).then((response) => {
@@ -15,7 +15,7 @@ for (let i = 0; i < urlList.length; i++) {
 }
 
 //====================================================================
-//Catalogue
+//catalogue
 
 for (let i = 0; i < urlList.length; i++) {
     getDatas(urlList[i], groupList[i]).then((response) => {

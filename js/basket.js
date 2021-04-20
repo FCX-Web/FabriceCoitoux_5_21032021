@@ -62,6 +62,7 @@ let removeItem = (i) => {
             numberOfItems += parseInt(basketDatas[i].itemQuantity, 10);
         }
         localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
+
         if (!numberOfItems) {
             basketEmpty();
             basketUpDate();
@@ -105,16 +106,34 @@ let basketEmpty = () => {
 
 //order validation form
 let command = () => {
-    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2 class="mb-5">Vos Coordonnées</h2> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control" id="prenom" placeholder="Prénom" required> </div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control" id="nom" placeholder="Nom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="prenom">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="Adresse" required> </div> <div class = "col-md-6 mb-3" > <label for="prenom">Complément d\'adresse</label> <input type = "text" class="form-control" id="adresse" placeholder="Complément d\'adresse" > </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="cp">Code postal</label> <input type="number" class="form-control" id="cp" placeholder="Code postal" required> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control" id="ville" placeholder="Ville" required> </div> <div class="col-md-3 mb-3" > <label for="pays" >Pays</label> <input type="text" class="form-control" id="pays" placeholder="Pays" required > </div> <div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="email" required > </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile ou fixe</label> <input type="tel" class="form-control" id="tel" placeholder="Téléphone" required > </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label> <div class="invalid-feedback" >Vous devez accepter les CGU pour continuer </div> </div > </div> <a href="./purchase.html" class="btn btn-primary" >Envoyer</a> </form>';
+    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2 class="mb-5">Vos Coordonnées</h2> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control" id="prenom" placeholder="Prénom" required> </div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control" id="nom" placeholder="Nom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="Adresse" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="number" class="form-control" id="codepostal" placeholder="Code postal" required> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control" id="ville" placeholder="Ville" required></div> <div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="email" required > </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="Téléphone mobile" required > </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label> <div class="invalid-feedback" >Vous devez accepter les CGU pour continuer </div> </div > </div> <a id="sendForm" href="#" class="btn btn-primary" >Envoyer</a> </form>';
+
+    document.getElementById("sendForm").addEventListener("click", () => {
+        formValidation();
+    });
 };
 
+//order validation form datas
+let formValidation = () => {
+    let firstname = document.getElementById("prenom").value;
+    let lastname = document.getElementById("nom").value;
+    let address = document.getElementById("adresse").value;
+    let city = document.getElementById("ville").value;
+    let email = document.getElementById("email").value;
+
+    let contact = { firstname, lastname, address, city, email };
+
+    console.log(contact);
+};
+
+//================================================================//
 /*main*/
 
 let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel"));
-if (basketDatas == null) {
-    basketDatas = {};
-}
+let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel")) || {};
+// if (basketDatas == null) {
+//     basketDatas = {};
+// }
 
 basketUpDate();
 

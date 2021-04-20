@@ -3,8 +3,10 @@
 
 //list of product category urls
 let urlList = ["http://localhost:3000/api/teddies", "http://localhost:3000/api/cameras", "http://localhost:3000/api/furniture"];
+
 //list of product categories
 let groupList = ["peluches", "photos", "meubles"];
+
 //front-back category links
 let customList = { peluches: "colors", photos: "lenses", meubles: "varnish" };
 
@@ -23,15 +25,15 @@ let basketHeader = (file) => {
 
 //update of the product quantity in the basket
 let basketUpDate = () => {
-    let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-    if (basketDatas == null) {
-        basketDatas = {};
-    }
-    let idList = Object.keys(basketDatas);
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || {};
+    // if (basketDatas == null) {
+    //     basketDatas = {};
+    // }
+    // let idList = Object.keys(basketDatas);
 
     let numberOfItems = 0;
-    for (let i = 0; i < idList.length; i++) {
-        numberOfItems += parseInt(basketDatas[idList[i]].itemQuantity, 10);
+    for (let i = 0; i < basketDatas.length; i++) {
+        numberOfItems += parseInt(basketDatas[i].itemQuantity, 10);
     }
 
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));

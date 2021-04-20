@@ -42,32 +42,31 @@ let sendToBasket = () => {
         let itemChoiceOption = document.getElementById("productCustom").value;
         let itemQuantity = document.getElementById("idQuantity").value;
         let itemDatas = { itemId, itemChoiceOption, itemQuantity };
-        let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
+        let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
 
-        if (!basketDatas) {
-            basketDatas = [];
-            basketDatas.push(itemDatas);
-        } else {
-            let k = 0;
-            for (let elt of basketDatas) {
-                switch (itemId) {
-                    case elt.itemId:
-                        if (elt.itemChoiceOption == itemChoiceOption) {
-                            elt.itemQuantity = String(parseInt(elt.itemQuantity) + parseInt(itemQuantity));
-                            k++;
-                        }
-                        break;
-                }
-            }
-            if (k === 0) {
-                basketDatas.push(itemDatas);
+        // if (!basketDatas) {
+        //     basketDatas = [];
+        //     basketDatas.push(itemDatas);
+        // } else {
+        let k = 0;
+        for (let elt of basketDatas) {
+            switch (itemId) {
+                case elt.itemId:
+                    if (elt.itemChoiceOption == itemChoiceOption) {
+                        elt.itemQuantity = String(parseInt(elt.itemQuantity) + parseInt(itemQuantity));
+                        k++;
+                    }
+                    break;
             }
         }
+        if (k === 0) {
+            basketDatas.push(itemDatas);
+        }
+        // }
         basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         basketUpDate();
     }
 };
-
 
 document.getElementById("addItem").addEventListener("click", () => {
     sendToBasket()

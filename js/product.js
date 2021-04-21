@@ -44,10 +44,6 @@ let sendToBasket = () => {
         let itemDatas = { itemId, itemChoiceOption, itemQuantity };
         let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
 
-        // if (!basketDatas) {
-        //     basketDatas = [];
-        //     basketDatas.push(itemDatas);
-        // } else {
         let k = 0;
         for (let elt of basketDatas) {
             switch (itemId) {

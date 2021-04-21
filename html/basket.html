@@ -115,51 +115,51 @@
             <!--order form-->
             <!-- <div class="container mb-5">
                 <h2 class="mb-5">Vos Coordonnées</h2>
+                <p class="fs-6">(Tous les champs doivent être complétés)</p>
                 <form>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="prenom">Prénom</label>
-                            <input type="text" class="form-control" id="prenom" placeholder="Prénom" required>
+                            <input type="text" class="form-control" id="prenom" placeholder="ex : monprénom" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="nom">Nom</label>
-                            <input type="text" class="form-control" id="nom" placeholder="Nom" required>
+                            <input type="text" class="form-control" id="nom" placeholder="monnom" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="adresse">Adresse</label>
-                            <input type="text" class="form-control" id="adresse" placeholder="Adresse" required>
+                            <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-3 mb-3">
                             <label for="codepostal">Code postal</label>
-                            <input type="number" class="form-control" id="codepostal" placeholder="Code postal" required>
+                            <input type="number" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="ville">Ville</label>
-                            <input type="text" class="form-control" id="ville" placeholder="Ville" required>
+                            <input type="text" class="form-control" id="ville" placeholder="ex : orinoco city" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="email">email</label>
-                            <input type="email" class="form-control" id="email" placeholder="email" required>
+                            <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="tel">Téléphone mobile</label>
-                            <input type="tel" class="form-control" id="tel" placeholder="Téléphone mobile" required>
+                            <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}">
                         </div>
                     </div>
                     <div class="form-group mt-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="cgu" required>
                             <label class="form-check-label" for="cgu">J'accepte les conditions générales d'utilisation et de vente</label>
-                            <div class="invalid-feedback">Vous devez accepter les CGU pour continuer</div>
                         </div>
                     </div>
-                    <a href="./purchase.html" class="btn btn-primary">Envoyer</a>
+                    <button id="sendform" href="./purchase.html" class="btn btn-primary">Envoyer</button>
                 </form> -->
         </section>
 

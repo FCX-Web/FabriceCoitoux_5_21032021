@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
 
-    <title>Titre</title>
+    <title>Orinoco - Confirmation de commande</title>
     <meta name="description" content="">
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://fcx-web.github.io/FabriceCoitoux_5_21032021/" />
@@ -14,7 +14,6 @@
     <link rel="shortcut icon" type="image/jpg" href="../images/favicon.jpg">
 
     <!--fonts, icons-->
-    <link rel="stylesheet" href="./css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <script src="https://kit.fontawesome.com/7eccdd5b9c.js" crossorigin="anonymous"></script>
 
@@ -23,7 +22,9 @@
 </head>
 
 <body>
+
     <main>
+
         <header>
             <div class="bg-secondary text-white mt-3 mb-5">
                 <div class="container">
@@ -42,8 +43,7 @@
                                     <li class="nav-item active"> <a class="nav-link" href="../index.html">Accueil</a></li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><i class="fas fa-user mr-1"></i>Votre espace</a></li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="./basket.html"><i class="fas fa-shopping-basket mr-1"></i>Votre panier</a></li>
+                                    <li id="buttonBasket" class="nav-item"></li>
                                 </ul>
                                 <form class="form-inline text-white pb-3 pt-3 pt-lg-0 ml-lg-5">
                                     <input class="form-control" id="searchInput" type="text" placeholder="Search..">
@@ -56,7 +56,6 @@
             </div>
         </header>
 
-
         <section>
             <div class="container">
                 <div class="card mb-3 mb-5">
@@ -67,10 +66,10 @@
                     </div>
                     <div class="card-body">
                         <div class="col-12 d-flex justify-content-center mb-5">
-                            <p class="card-text">Votre paiement d'un montant de <span class="font-weight-bold text-danger">4800€</span> a été accepté et votre commande est validée.</p>
+                            <p class="card-text">Votre paiement d'un montant de <span id="amountValidated" class="font-weight-bold text-danger"></span> a été accepté et votre commande est validée.</p>
                         </div>
                         <div class="col-12 d-flex justify-content-center mb-3">
-                            <p class="card-text">Votre numéro de commande est le : <span class="font-weight-bold text-danger">45268-4579-9865-23478</span></p>
+                            <p class="card-text">Votre numéro de commande est le : <span id="commandNumber" class="font-weight-bold text-danger"></span></p>
                         </div>
                         <div class="col-12 d-flex justify-content-center mb-3">
                             <p class="card-text">Nous sommes heureux de vous compter parmi nos clients. A très bientôt pour de nouveaux achats plaisir chez Orinoco !!!</p>
@@ -81,7 +80,6 @@
                     </div>
                 </div>
             </div>
-
         </section>
 
         <footer>
@@ -102,12 +100,17 @@
                 </div>
             </div>
         </footer>
+
     </main>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="../js/commons.js"></script>
+    <script src="../js/purchase.js"></script>
+
 </body>
 
 </html>

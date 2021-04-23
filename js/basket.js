@@ -33,10 +33,10 @@ let changeItemQuantity = (price, i, quantity) => {
     let numberOfItems = JSON.parse(localStorage.getItem("basketLevel"));
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
-    numberOfItems = numberOfItems - basketDatas[i].itemQuantity + parseInt(quantity);
-    basketDatas[i].itemQuantity = parseInt(quantity);
-    document.getElementById("quantity-" + i).setAttribute("value", parseInt(quantity));
-    document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * parseInt(quantity)) / 100 + " €";
+    numberOfItems = parseInt(numberOfItems, 10) - parseInt(basketDatas[i].itemQuantity, 10) + parseInt(quantity, 10);
+    basketDatas[i].itemQuantity = parseInt(quantity, 10);
+    document.getElementById("quantity-" + i).setAttribute("value", parseInt(quantity, 10));
+    document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * parseInt(quantity, 10)) / 100 + " €";
 
     localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
@@ -107,7 +107,7 @@ let basketEmpty = () => {
 
 //order validation form
 let command = () => {
-    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2>Vos Coordonnées</h2> <p class="fs-6">(Tous les champs doivent être complétés)</p> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control text-capitalize" id="prenom" placeholder="ex : monprénom" required></div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control text-uppercase" id="nom" placeholder="monnom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="tel" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}"> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control text-uppercase" id="ville" placeholder="ex : orinoco city " required></div> </div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"> </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label></div > </div> <button id="sendForm" href="./purchase.html" class="btn btn-primary" >Envoyer</button> </form>';
+    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2>Vos Coordonnées</h2> <p class="fs-6">(Tous les champs doivent être complétés)</p> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control text-capitalize" id="prenom" placeholder="ex : monprénom" required></div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control text-uppercase" id="nom" placeholder="monnom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="tel" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}"> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control text-uppercase" id="ville" placeholder="ex : orinoco city " required></div> </div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"> </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label></div > </div> <a id="sendForm" class="btn btn-primary" class="text-light" href="./purchase.html">Envoyer</button> </form>';
 
     document.getElementById("sendForm").addEventListener("click", () => {
         formValidation();
@@ -156,7 +156,8 @@ let formValidation = () => {
 /*main*/
 
 let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
-let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel")) || {};
+let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel"));
+
 
 basketUpDate();
 

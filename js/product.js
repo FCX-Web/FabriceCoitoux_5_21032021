@@ -33,9 +33,6 @@ getDatas(urlList[itemIndex]).then((response) => {
     }
 });
 
-//=======================================================================
-/* basketStorage as array of object*/
-
 //validation of the choices and saving in localstorage
 let sendToBasket = () => {
     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
@@ -58,7 +55,6 @@ let sendToBasket = () => {
         if (k === 0) {
             basketDatas.push(itemDatas);
         }
-        // }
         basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         basketUpDate();
     }

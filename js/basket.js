@@ -1,12 +1,7 @@
 //====================================================================
 /*basket management*/
 
-
-//=======================================================================
-/* basketStorage as array of object*/
-
-/*function*/
-
+/*functions*/
 //update of the total amount of the basket
 let totalAmount = () => {
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
@@ -20,9 +15,13 @@ let totalAmount = () => {
                             amount += elt.price * parseInt(basketDatas[i].itemQuantity, 10);
                             break;
                     };
-                };
-                document.getElementById("totalAmount").innerHTML = amount / 100;
-                localStorage.setItem("amountStorage", JSON.stringify(amount));
+                    localStorage.setItem("amountStorage", JSON.stringify(amount));
+                    if (i === basketDatas.length - 1) {
+                        document.getElementById("totalAmount").innerHTML = amount / 100;
+                    } else {
+
+                    }
+                }
             });
         };
     };
@@ -30,6 +29,8 @@ let totalAmount = () => {
 
 //change of basket quantities
 let changeItemQuantity = (price, i, quantity) => {
+    document.getElementById("totalAmount").innerHTML = JSON.parse(localStorage.getItem("amountStorage")) / 100;
+
     let numberOfItems = JSON.parse(localStorage.getItem("basketLevel"));
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
@@ -46,6 +47,7 @@ let changeItemQuantity = (price, i, quantity) => {
         basketUpDate();
     } else {
         totalAmount();
+        document.getElementById("totalAmount").innerHTML = JSON.parse(localStorage.getItem("amountStorage")) / 100;
         basketUpDate();
     }
 }
@@ -107,9 +109,10 @@ let basketEmpty = () => {
 
 //order validation form
 let command = () => {
-    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2>Vos Coordonnées</h2> <p class="fs-6">(Tous les champs doivent être complétés)</p> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control text-capitalize" id="prenom" placeholder="ex : monprénom" required></div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control text-uppercase" id="nom" placeholder="monnom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="tel" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}"> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control text-uppercase" id="ville" placeholder="ex : orinoco city " required></div> </div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"> </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label></div > </div> <a id="sendForm" class="btn btn-primary" stretched-link href="./purchase.html"> Envoyer</a></form>';
+    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2>Vos Coordonnées</h2> <p class="fs-6">(Tous les champs doivent être complétés)</p> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control text-capitalize" id="prenom" placeholder="ex : monprénom" required></div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control text-uppercase" id="nom" placeholder="monnom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="tel" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}"> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control text-uppercase" id="ville" placeholder="ex : orinoco city " required></div> </div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"> </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label></div > </div> <button id="sendForm" class="btn btn-primary" stretched-link> Envoyer</button></form>';
 
-    document.getElementById("sendForm").addEventListener("click", () => {
+    document.getElementById("sendForm").addEventListener("click", (event) => {
+        event.preventDefault();
         formValidation();
     });
 };
@@ -136,17 +139,10 @@ let formValidation = () => {
         let dataTransfer = { contact, products };
 
         for (let url of urlList) {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-                    const response = JSON.parse(this.responseText);
-                    localStorage.setItem("serverDatas", JSON.stringify(response.orderId));
-                    // console.log(response.orderId);
-                }
-            };
-            request.open("POST", url + "/order");
-            request.setRequestHeader("Content-Type", "application/json");
-            request.send(JSON.stringify(dataTransfer));
+            postDatas(url, dataTransfer).then((response) => {
+                localStorage.setItem("serverDatas", JSON.stringify(response.orderId));
+                document.location.href = "./purchase.html";
+            });
         }
     }
 };
@@ -167,7 +163,8 @@ if (!basketTotalItems) {
 
     showBasket();
 
-    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="validation" class="btn btn-success"> Valider ma commande </a> </div> </div>');
+
+    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="vider" class="btn btn-warning mr-3">Vider mon panier</a> <a href="#" id="validation" class="btn btn-success">Valider ma commande</a> </div> </div>');
 
     totalAmount();
 
@@ -175,6 +172,9 @@ if (!basketTotalItems) {
         command();
     });
 
-    console.log(JSON.parse(localStorage.getItem("serverDatas")));
-
+    document.getElementById("vider").addEventListener("click", () => {
+        localStorage.clear();
+        basketEmpty();
+        basketUpDate();
+    });
 }

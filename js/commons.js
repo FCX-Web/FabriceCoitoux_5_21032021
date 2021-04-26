@@ -25,7 +25,7 @@ let basketHeader = (file) => {
 
 //update of the product quantity in the basket
 let basketUpDate = () => {
-    let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || {};
+    let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
     let numberOfItems = 0;
     for (let i = 0; i < basketDatas.length; i++) {
         numberOfItems += parseInt(basketDatas[i].itemQuantity, 10);

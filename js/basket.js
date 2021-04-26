@@ -109,16 +109,39 @@ let basketEmpty = () => {
 
 //order validation form
 let command = () => {
-    document.getElementById("basketsection").innerHTML = '<div class="container mb-5"> <h2>Vos Coordonnées</h2> <p class="fs-6">(Tous les champs doivent être complétés)</p> <form> <div class="form-row"> <div class="col-md-4 mb-3"> <label for="prenom">Prénom</label> <input type="text" class="form-control text-capitalize" id="prenom" placeholder="ex : monprénom" required></div> <div class="col-md-4 mb-3"> <label for="nom">Nom</label> <input type="text" class="form-control text-uppercase" id="nom" placeholder="monnom" required> </div> </div> <div class="form-row"> <div class="col-md-6 mb-3"> <label for="adresse">Adresse</label> <input type="text" class="form-control" id="adresse" placeholder="ex : 50 rue icietlà" required> </div> </div > <div class="form-row"> <div class="col-md-3 mb-3"> <label for="codepostal">Code postal</label> <input type="tel" class="form-control" id="codepostal" placeholder="ex : 01790" required pattern="[0-9]{5}"> </div> <div class="col-md-6 mb-3"> <label for="ville">Ville</label> <input type="text" class="form-control text-uppercase" id="ville" placeholder="ex : orinoco city " required></div> </div> <div class="form-row" > <div class="col-md-4 mb-3" > <label for="email" >email</label> <input type="email" class="form-control" id="email" placeholder="ex : monemail@pasta.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> </div> <div class="col-md-4 mb-3" > <label for="tel" >Téléphone mobile</label> <input type="tel" class="form-control" id="tel" placeholder="ex : 01 23 45 67 89" required pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"> </div> </div> <div class="form-group mt-3" > <div class="form-check" > <input class="form-check-input" type="checkbox" value="" id="cgu" required > <label class="form-check-label" for="cgu" >J\'accepte les conditions générales d\'utilisation et de vente</label></div > </div> <button id="sendForm" class="btn btn-primary" stretched-link> Envoyer</button></form>';
 
-    document.getElementById("sendForm").addEventListener("click", (event) => {
+    document.getElementById("formdatas").style.display = "contents";
+
+    document.getElementById("sendform").addEventListener("click", (event) => {
         event.preventDefault();
         formValidation();
     });
 };
 
+//checking datas
+let checkInputs = () => {
+    let checkNumber = /[0-9]/;
+    let checkMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
+    let checkEmptyMessage = "";
+
+    if (
+        checkNumber.test(prenom) == true ||
+        checkSpecialCharacter.test(prenom) == true ||
+        nom == ""
+    ) {
+        alert("Merci de rectificer. Les caractères spéciaux ou les chiffres ne sont pas autorisés");
+    } else {}
+
+};
+
 //order validation form datas
 let formValidation = () => {
+
+    if (document.getElementById("prenom") === "") {
+        alert("Merci de remplir ce champ");
+    }
+
     let firstName = document.getElementById("prenom").value;
     let lastName = document.getElementById("nom").value;
     let address = document.getElementById("adresse").value;
@@ -158,6 +181,7 @@ basketUpDate();
 
 if (!basketTotalItems) {
     basketEmpty();
+    document.getElementById("formdatas").style.display = "none";
 } else {
     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<h2 class="d-flex justify-content-lg-center mb-3">Détail de votre commande</h2> <div> <div id="basketCollection">');
 
@@ -165,6 +189,8 @@ if (!basketTotalItems) {
 
 
     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="vider" class="btn btn-warning mr-3">Vider mon panier</a> <a href="#" id="validation" class="btn btn-success">Valider ma commande</a> </div> </div>');
+
+    document.getElementById("formdatas").style.display = "none";
 
     totalAmount();
 

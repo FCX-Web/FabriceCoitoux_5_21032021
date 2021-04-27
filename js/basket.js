@@ -34,7 +34,7 @@ let changeItemQuantity = (price, i, quantity) => {
     let numberOfItems = JSON.parse(localStorage.getItem("basketLevel"));
     let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
-    numberOfItems = parseInt(numberOfItems, 10) - parseInt(basketDatas[i].itemQuantity, 10) + parseInt(quantity, 10);
+    numberOfItems = numberOfItems - basketDatas[i].itemQuantity + parseInt(quantity, 10);
     basketDatas[i].itemQuantity = parseInt(quantity, 10);
     document.getElementById("quantity-" + i).setAttribute("value", parseInt(quantity, 10));
     document.getElementById("totalPrice-" + i).innerHTML = "Total: " + (price * parseInt(quantity, 10)) / 100 + " €";
@@ -130,21 +130,26 @@ let formValidation = () => {
     let cp = document.getElementById("codepostal").value;
     let tel = document.getElementById("tel").value;
 
+    if (!firstName || !lastName || !address || !city || !email || !cp || !tel) {
+        alert("Un ou plusieurs champs n'ont pas été remplis.\n\nMerci de rectifier");
+    } else if (!document.getElementById("cgu").checked) {
+        alert("Merci d'accepter les conditions générales d'utilisation et de vente");
+    } else {
+        if (window.confirm("Merci de vérifier vos informations avant de valider : \n\n" + firstName.charAt(0).toUpperCase() + firstName.slice(1) + " " + lastName.toUpperCase() + "\n" + address + "\n" + cp + " " + city + "\nEmail : " + email + "\nTél : " + tel, "", "")) {
+            let products = [];
+            let contact = { firstName, lastName, address, city, email };
+            // for (let elt of basketDatas) {
+            //     products.push(elt.itemId);
+            // }
+            products.push(basketDatas[0].itemId);
+            let dataTransfer = { contact, products };
 
-    if (window.confirm("Merci de vérifier vos informations avant de valider : \n\n" + firstName.charAt(0).toUpperCase() + firstName.slice(1) + " " + lastName.toUpperCase() + "\n" + address + "\n" + cp + " " + city + "\nEmail : " + email + "\nTél : " + tel, "", "")) {
-        let products = [];
-        let contact = { firstName, lastName, address, city, email };
-        // for (let elt of basketDatas) {
-        //     products.push(elt.itemId);
-        // }
-        products.push(basketDatas[0].itemId);
-        let dataTransfer = { contact, products };
-
-        for (let url of urlList) {
-            postDatas(url, dataTransfer).then((response) => {
-                localStorage.setItem("serverDatas", JSON.stringify(response.orderId));
-                document.location.href = "./purchase.html";
-            });
+            for (let url of urlList) {
+                postDatas(url, dataTransfer).then((response) => {
+                    localStorage.setItem("serverDatas", JSON.stringify(response.orderId));
+                    document.location.href = "./purchase.html";
+                });
+            }
         }
     }
 };

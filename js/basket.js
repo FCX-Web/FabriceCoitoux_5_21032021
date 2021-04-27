@@ -42,8 +42,10 @@ let changeItemQuantity = (price, i, quantity) => {
     localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
 
-    if (!numberOfItems) {
-        basketEmpty();
+    if (!numberOfItems && numberOfItems != 0) {
+        // basketEmpty();
+        document.getElementById("basket").style.display = "none";
+        document.getElementById("emptybasket").style.display = "block";
         basketUpDate();
     } else {
         totalAmount();
@@ -67,7 +69,9 @@ let removeItem = (i) => {
         localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
 
         if (!numberOfItems) {
-            basketEmpty();
+            // basketEmpty();
+            document.getElementById("basket").style.display = "none";
+            document.getElementById("emptybasket").style.display = "block";
             basketUpDate();
         } else {
             totalAmount();
@@ -109,39 +113,14 @@ let basketEmpty = () => {
 
 //order validation form
 let command = () => {
-
-    document.getElementById("formdatas").style.display = "contents";
-
     document.getElementById("sendform").addEventListener("click", (event) => {
         event.preventDefault();
         formValidation();
     });
 };
 
-//checking datas
-let checkInputs = () => {
-    let checkNumber = /[0-9]/;
-    let checkMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let checkSpecialCharacter = /[§!@#$%^&*().?":{}|<>]/;
-    let checkEmptyMessage = "";
-
-    if (
-        checkNumber.test(prenom) == true ||
-        checkSpecialCharacter.test(prenom) == true ||
-        nom == ""
-    ) {
-        alert("Merci de rectificer. Les caractères spéciaux ou les chiffres ne sont pas autorisés");
-    } else {}
-
-};
-
 //order validation form datas
 let formValidation = () => {
-
-    if (document.getElementById("prenom") === "") {
-        alert("Merci de remplir ce champ");
-    }
-
     let firstName = document.getElementById("prenom").value;
     let lastName = document.getElementById("nom").value;
     let address = document.getElementById("adresse").value;
@@ -176,31 +155,36 @@ let formValidation = () => {
 let basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel"));
 
-
 basketUpDate();
 
 if (!basketTotalItems) {
-    basketEmpty();
-    document.getElementById("formdatas").style.display = "none";
+    // basketEmpty();
+    document.getElementById("orderform").style.display = "none";
 } else {
     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<h2 class="d-flex justify-content-lg-center mb-3">Détail de votre commande</h2> <div> <div id="basketCollection">');
 
     showBasket();
 
+    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> €</span></h3> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="vider" class="btn btn-warning mr-3">Vider mon panier</a> <a href="#" id="validation" class="btn btn-success">Valider ma commande</a> </div>');
 
-    document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<div class="row"> <div class="col-12 d-flex mb-5 justify-content-end"> <h3 class="text-danger text-italic mt-3"> <span>Montant total de votre panier: </span> <span id="totalAmount"></span> <span> € </span></h3> </div> </div> </div> <div class="d-flex justify-content-center mb-5"> <a href="../index.html" class="btn btn-primary mr-3">Continuer mes achats</a> <a href="#" id="vider" class="btn btn-warning mr-3">Vider mon panier</a> <a href="#" id="validation" class="btn btn-success">Valider ma commande</a> </div> </div>');
-
-    document.getElementById("formdatas").style.display = "none";
+    document.getElementById("orderform").style.display = "none";
+    document.getElementById("emptybasket").style.display = "none";
 
     totalAmount();
 
     document.getElementById("validation").addEventListener("click", () => {
+        document.getElementById("basket").style.display = "none";
+        document.getElementById("orderform").style.display = "block";
         command();
     });
 
     document.getElementById("vider").addEventListener("click", () => {
-        localStorage.clear();
-        basketEmpty();
-        basketUpDate();
+        if (window.confirm("Confirmez-vous la suppression de tous les articles du panier ?", "", "")) {
+            localStorage.clear();
+            document.getElementById("basket").style.display = "none";
+            document.getElementById("emptybasket").style.display = "block";
+            // basketEmpty();
+            basketUpDate();
+        }
     });
 }

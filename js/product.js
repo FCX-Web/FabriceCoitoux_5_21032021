@@ -37,7 +37,7 @@ getDatas(urlList[itemIndex]).then((response) => {
 let sendToBasket = () => {
     if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
         let itemChoiceOption = document.getElementById("productCustom").value;
-        let itemQuantity = document.getElementById("idQuantity").value;
+        let itemQuantity = parseInt(document.getElementById("idQuantity").value);
         let itemDatas = { itemId, itemChoiceOption, itemQuantity };
         let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
 
@@ -46,7 +46,7 @@ let sendToBasket = () => {
             switch (itemId) {
                 case elt.itemId:
                     if (elt.itemChoiceOption == itemChoiceOption) {
-                        elt.itemQuantity = String(parseInt(elt.itemQuantity) + parseInt(itemQuantity));
+                        elt.itemQuantity = parseInt(elt.itemQuantity) + parseInt(itemQuantity);
                         k++;
                     }
                     break;

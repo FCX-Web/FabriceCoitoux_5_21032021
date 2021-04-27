@@ -35,28 +35,35 @@ getDatas(urlList[itemIndex]).then((response) => {
 
 //validation of the choices and saving in localstorage
 let sendToBasket = () => {
-    if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
-        let itemChoiceOption = document.getElementById("productCustom").value;
-        let itemQuantity = parseInt(document.getElementById("idQuantity").value);
-        let itemDatas = { itemId, itemChoiceOption, itemQuantity };
-        let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
 
-        let k = 0;
-        for (let elt of basketDatas) {
-            switch (itemId) {
-                case elt.itemId:
-                    if (elt.itemChoiceOption == itemChoiceOption) {
-                        elt.itemQuantity = parseInt(elt.itemQuantity) + parseInt(itemQuantity);
-                        k++;
-                    }
-                    break;
+    if (document.getElementById("productCustom").value === "Faites votre choix") {
+        alert("Merci de choisir une option de personnalisation");
+    } else if (!document.getElementById("idQuantity").value) {
+        alert("Merci de saisir une quantité");
+    } else {
+        if (window.confirm("Voulez vous ajouter cette référence au panier ?", "", "")) {
+            let itemChoiceOption = document.getElementById("productCustom").value;
+            let itemQuantity = parseInt(document.getElementById("idQuantity").value, 10);
+            let itemDatas = { itemId, itemChoiceOption, itemQuantity };
+            let basketDatas = JSON.parse(localStorage.getItem("basketStorage")) || [];
+
+            let k = 0;
+            for (let elt of basketDatas) {
+                switch (itemId) {
+                    case elt.itemId:
+                        if (elt.itemChoiceOption == itemChoiceOption) {
+                            elt.itemQuantity = elt.itemQuantity + itemQuantity;
+                            k++;
+                        }
+                        break;
+                }
             }
+            if (k === 0) {
+                basketDatas.push(itemDatas);
+            }
+            basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
+            basketUpDate();
         }
-        if (k === 0) {
-            basketDatas.push(itemDatas);
-        }
-        basketDatas = localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
-        basketUpDate();
     }
 };
 

@@ -126,12 +126,29 @@ let formValidation = () => {
     let address = document.getElementById("adresse").value;
     let city = document.getElementById("ville").value;
     let email = document.getElementById("email").value;
-
     let cp = document.getElementById("codepostal").value;
     let tel = document.getElementById("tel").value;
 
+    let checkNumber = /[0-9]/;
+    let checkSpecialChar = /[&"#{([|\@)\]=}+"£$%*?,.;/!]/;
+    let checkCp = /[0-9]{5}/;
+    let checkEmail = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+    let checkTel = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
+
     if (!firstName || !lastName || !address || !city || !email || !cp || !tel) {
         alert("Un ou plusieurs champs n'ont pas été remplis.\n\nMerci de rectifier");
+    } else if (checkNumber.test(firstName) || checkNumber.test(lastName) || checkNumber.test(city)) {
+        alert("Les champs Prénom, Nom et Ville n'acceptent pas les chiffres, mais uniquement les lettres et caractères accentués");
+    } else if (checkSpecialChar.test(firstName) || checkSpecialChar.test(lastName) || checkSpecialChar.test(city)) {
+        alert("Les champs Prénom, Nom et Ville n'acceptent pas les caractères spéciaux, mais uniquement les lettres et caractères accentués");
+    } else if (checkSpecialChar.test(address)) {
+        alert("Le champs Adresse n'accepte pas les caractères spéciaux, mais uniquement les lettres, les nombres et caractères accentués");
+    } else if (!checkCp.test(cp)) {
+        alert("Le format du code postal n'est pas valide\n\nMerci de rectifier");
+    } else if (!checkEmail.test(email)) {
+        alert("Le format de votre adresse email n'est pas valide\n\nIl doit être de la forme : monemail@pasta.com\n\nMerci de rectifier");
+    } else if (!checkTel.test(tel)) {
+        alert("Le format de votre numéro de téléphone n'est pas valide\n\nIl doit être de la forme : 0617799331, 06 17 79 93 31 ou 06-17-79-93-31\n\nMerci de rectifier");
     } else if (!document.getElementById("cgu").checked) {
         alert("Merci d'accepter les conditions générales d'utilisation et de vente");
     } else {

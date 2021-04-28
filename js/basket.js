@@ -58,7 +58,7 @@ let removeItem = (i) => {
     basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
     if (window.confirm("Confirmez-vous la suppression de cet article ?", "", "")) {
-        // document.getElementById("item-" + i).remove();
+        document.getElementById("item-" + i).remove();
         basketDatas.splice(i, 1);
         localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         let numberOfItems = 0;
@@ -179,7 +179,6 @@ let basketTotalItems = JSON.parse(localStorage.getItem("basketLevel"));
 basketUpDate();
 
 if (!basketTotalItems) {
-    // basketEmpty();
     document.getElementById("orderform").style.display = "none";
 } else {
     document.getElementById("basketsection").insertAdjacentHTML("beforeend", '<h2 class="d-flex justify-content-lg-center mb-3">Détail de votre commande</h2> <div> <div id="basketCollection">');
@@ -204,7 +203,6 @@ if (!basketTotalItems) {
             localStorage.clear();
             document.getElementById("basket").style.display = "none";
             document.getElementById("emptybasket").style.display = "block";
-            // basketEmpty();
             basketUpDate();
         }
     });

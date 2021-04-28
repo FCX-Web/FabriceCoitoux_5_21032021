@@ -58,7 +58,7 @@ let removeItem = (i) => {
     basketDatas = JSON.parse(localStorage.getItem("basketStorage"));
 
     if (window.confirm("Confirmez-vous la suppression de cet article ?", "", "")) {
-        document.getElementById("item-" + i).remove();
+        // document.getElementById("item-" + i).remove();
         basketDatas.splice(i, 1);
         localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         let numberOfItems = 0;
@@ -74,7 +74,7 @@ let removeItem = (i) => {
         } else {
             totalAmount();
             basketUpDate();
-            document.location.reload();
+            window.location.reload();
         }
     }
 }

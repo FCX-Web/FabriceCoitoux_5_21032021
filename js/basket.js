@@ -43,7 +43,6 @@ let changeItemQuantity = (price, i, quantity) => {
     localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
 
     if (!numberOfItems && numberOfItems != 0) {
-        // basketEmpty();
         document.getElementById("basket").style.display = "none";
         document.getElementById("emptybasket").style.display = "block";
         basketUpDate();
@@ -64,18 +63,18 @@ let removeItem = (i) => {
         localStorage.setItem("basketStorage", JSON.stringify(basketDatas));
         let numberOfItems = 0;
         for (let k = 0; k < basketDatas.length; k++) {
-            numberOfItems += parseInt(basketDatas[k].itemQuantity, 10);
+            numberOfItems += basketDatas[k].itemQuantity;
         }
         localStorage.setItem("basketLevel", JSON.stringify(numberOfItems));
 
         if (!numberOfItems) {
-            // basketEmpty();
             document.getElementById("basket").style.display = "none";
             document.getElementById("emptybasket").style.display = "block";
             basketUpDate();
         } else {
             totalAmount();
             basketUpDate();
+            document.location.reload();
         }
     }
 }
@@ -148,7 +147,7 @@ let formValidation = () => {
     } else if (!checkEmail.test(email)) {
         alert("Le format de votre adresse email n'est pas valide\n\nIl doit être de la forme : monemail@pasta.com\n\nMerci de rectifier");
     } else if (!checkTel.test(tel)) {
-        alert("Le format de votre numéro de téléphone n'est pas valide\n\nIl doit être de la forme : 0617799331, 06 17 79 93 31 ou 06-17-79-93-31\n\nMerci de rectifier");
+        alert("Le format de votre numéro de téléphone n'est pas valide\n\nIl doit être de la forme : 0617799331, 06 17 79 93 31, 06.17.79.93.31 ou 06-17-79-93-31\n\nMerci de rectifier");
     } else if (!document.getElementById("cgu").checked) {
         alert("Merci d'accepter les conditions générales d'utilisation et de vente");
     } else {

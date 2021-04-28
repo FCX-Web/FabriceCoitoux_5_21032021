@@ -130,7 +130,7 @@ let formValidation = () => {
 
     let checkNumber = /[0-9]/;
     let checkSpecialChar = /[&"#{([|\@)\]=}+"£$%*?,.;/!]/;
-    let checkCp = /[0-9]{5}/;
+    let checkCp = /^[0-9]{5}$/;
     let checkEmail = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
     let checkTel = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
 

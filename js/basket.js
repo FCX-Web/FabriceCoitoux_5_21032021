@@ -105,11 +105,6 @@ let showBasket = () => {
     };
 };
 
-//alert empty basket
-let basketEmpty = () => {
-    document.getElementById("basketsection").innerHTML = '<div class="container"> <h2 class="d-flex justify-content-lg-center mb-5">Votre panier est vide</h2> <div class="d-flex justify-content-center mb-5"> <a href="../index.html"  class="btn btn-primary mr-3">Continuer mes achats</a> </div> </div>';
-};
-
 //order validation form
 let command = () => {
     document.getElementById("sendform").addEventListener("click", (event) => {
